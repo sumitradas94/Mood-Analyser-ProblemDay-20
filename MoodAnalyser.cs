@@ -8,33 +8,39 @@ namespace MoodAnalyserProject
 {
     public class MoodAnalyser
     {
-       
-            string message;
-            public MoodAnalyser(string Message)
+        string message;
+
+        public MoodAnalyser()
+        {
+        }
+
+        public MoodAnalyser(string message)
+        {
+            this.message = message;
+        }
+        public string AnalyzeMood()
+        {
+            try
             {
-                this.message = Message;
+                if (message.Equals(string.Empty))
+                {
+                    throw new CustomException(CustomException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be empty");
+                }
+                else if (message.ToLower().Contains("happy"))
+                {
+                    return "happy";
+                }
+                else
+                {
+                    return "sad";
+                }
             }
-            public string AnalyzeMood()
+            catch (NullReferenceException)
             {
-                try
-                {
-                    if (message.Equals(string.Empty))
-                    {
-                        throw new CustomException(CustomException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be empty");
-                    }
-                    else if (message.ToLower().Contains("happy"))
-                    {
-                        return "happy";
-                    }
-                    else
-                    {
-                        return "sad";
-                    }
-                }
-                catch (NullReferenceException)
-                {
-                    throw new CustomException(CustomException.ExceptionType.NULL_EXCEPTION, "Mood should not be NULL");
-                }
+                throw new CustomException(CustomException.ExceptionType.NULL_EXCEPTION, "Mood should not be NULL");
+
             }
         }
+
     }
+}
